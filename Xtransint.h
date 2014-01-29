@@ -351,11 +351,6 @@ static int TRANS(WriteV)(
 
 #endif /* WIN32 */
 
-
-static int is_numeric (
-    const char *	/* str */
-);
-
 #ifdef TRANS_SERVER
 static int trans_mkdir (
     const char *,	/* path */

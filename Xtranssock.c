@@ -196,6 +196,20 @@ static Sockettrans2dev Sockettrans2devtab[] = {
 static int TRANS(SocketINETClose) (XtransConnInfo ciptr);
 #endif
 
+#if defined(TCPCONN) || defined(TRANS_REOPEN)
+static int
+is_numeric (const char *str)
+{
+    int i;
+
+    for (i = 0; i < (int) strlen (str); i++)
+	if (!isdigit (str[i]))
+	    return (0);
+
+    return (1);
+}
+#endif
+
 #ifdef UNIXCONN
 
 

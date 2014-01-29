@@ -425,20 +425,6 @@ TRANS(WSAStartup) (void)
 }
 #endif
 
-#include <ctype.h>
-
-static int
-is_numeric (const char *str)
-{
-    int i;
-
-    for (i = 0; i < (int) strlen (str); i++)
-	if (!isdigit (str[i]))
-	    return (0);
-
-    return (1);
-}
-
 #ifdef TRANS_SERVER
 #include <sys/types.h>
 #include <sys/stat.h>
