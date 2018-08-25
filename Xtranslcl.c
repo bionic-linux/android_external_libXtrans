@@ -1703,6 +1703,7 @@ TRANS(LocalEndTransports)(void)
 {
     prmsg(3,"LocalEndTransports()\n");
     free(freeXLOCAL);
+    freeXLOCAL = NULL;
 }
 
 #define TYPEBUFSIZE	32
