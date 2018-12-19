@@ -53,9 +53,6 @@ from The Open Group.
 #ifdef HAVE_SYSTEMD_DAEMON
 #include <systemd/sd-daemon.h>
 #endif
-#ifdef ELOGIND_LOGIND
-#include <elogind/sd-daemon.h>
-#endif
 
 /*
  * The transport table contains a definition for every transport (protocol)
@@ -1045,7 +1042,7 @@ receive_listening_fds(const char* port, XtransConnInfo* temp_ciptrs,
                       int* count_ret)
 
 {
-#if defined(HAVE_SYSTEMD_DAEMON) || defined(ELOGIND_LOGIND)
+#ifdef HAVE_SYSTEMD_DAEMON
     XtransConnInfo ciptr;
     int i, systemd_listen_fds;
 
@@ -1110,7 +1107,7 @@ receive_listening_fds(const char* port, XtransConnInfo* temp_ciptrs,
         temp_ciptrs[(*count_ret)++] = ciptr;
         TRANS(Received)(tn);
     }
-#endif /* HAVE_SYSTEMD_DAEMON || ELOGIND_LOGIND */
+#endif /* HAVE_SYSTEMD_DAEMON */
     return 0;
 }
 
