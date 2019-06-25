@@ -1170,6 +1170,9 @@ TRANS(MakeAllCOTSServerListeners) (const char *port, int *partial,
 
 	if ((status = TRANS(CreateListener (ciptr, port, flags))) < 0)
 	{
+            if (*partial != 0)
+		continue;
+
 	    if (status == TRANS_ADDR_IN_USE)
 	    {
 		/*
