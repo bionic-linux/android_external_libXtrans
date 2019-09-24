@@ -1318,7 +1318,7 @@ static int TRANS(WriteV) (XtransConnInfo ciptr, struct iovec *iov, int iovcnt)
 #endif /* WIN32 */
 
 
-#if defined(_POSIX_SOURCE) || defined(USG) || defined(SVR4) || defined(__SVR4) || defined(__SCO__)
+#if defined(_POSIX_SOURCE) || defined(SVR4) || defined(__SVR4) || defined(__SCO__)
 #ifndef NEED_UTSNAME
 #define NEED_UTSNAME
 #endif

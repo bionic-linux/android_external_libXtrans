@@ -1068,7 +1068,7 @@ TRANS(SocketUNIXResetListener) (XtransConnInfo ciptr)
     if (!abstract && (
 	stat (unsock->sun_path, &statb) == -1 ||
         ((statb.st_mode & S_IFMT) !=
-#if defined(NCR) || defined(SCO325) || !defined(S_IFSOCK)
+#if defined(SCO325) || !defined(S_IFSOCK)
 	  		S_IFIFO
 #else
 			S_IFSOCK
