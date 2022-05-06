@@ -611,12 +611,19 @@ TRANS(SocketOpenCOTSServer) (Xtransport *thistrans, const char *protocol,
 	    break;
     }
     if (i < 0) {
-	if (i == -1)
-	    prmsg (1,"SocketOpenCOTSServer: Unable to open socket for %s\n",
-		   thistrans->TransName);
-	else
+	if (i == -1) {
+		if (errno == EAFNOSUPPORT) {
+			thistrans->flags |= TRANS_NOLISTEN;
+			prmsg (1,"SocketOpenCOTSServer: Socket for %s unsupported on this system.\n",
+			       thistrans->TransName);
+		} else {
+			prmsg (1,"SocketOpenCOTSServer: Unable to open socket for %s\n",
+			       thistrans->TransName);
+		}
+	} else {
 	    prmsg (1,"SocketOpenCOTSServer: Unable to determine socket type for %s\n",
 		   thistrans->TransName);
+	}
 	return NULL;
     }
 
