@@ -50,7 +50,7 @@ from The Open Group.
 /*
  * These are some utility functions created for convenience or to provide
  * an interface that is similar to an existing interface. These are built
- * only using the Transport Independant API, and have no knowledge of
+ * only using the Transport Independent API, and have no knowledge of
  * the internal implementation.
  */
 
