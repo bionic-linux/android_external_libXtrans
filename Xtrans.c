@@ -331,14 +331,26 @@ TRANS(ParseAddress) (const char *address,
      */
 #endif
 
+    if (address != NULL) {
+        if (address[0] == '/') {
+            _protocol = "local";
+            _host = "";
+            _port = address;
+        } else
 #ifdef HAVE_LAUNCHD
-    /* launchd sockets will look like 'local//tmp/launch-XgkNns/:0' */
-    if(address != NULL && strlen(address)>8 && (!strncmp(address,"local//",7))) {
-      _protocol="local";
-      _host="";
-      _port=address+6;
-    }
+        /* launchd sockets will look like 'local//tmp/launch-XgkNns/:0' */
+        if(!strncmp(address,"local//",7)) {
+            _protocol="local";
+            _host="";
+            _port=address+6;
+        } else
 #endif
+        if (!strncmp(address, "unix:", 5)) {
+            _protocol = "local";
+            _host = "";
+            _port = address + 5;
+        }
+    }
 
     /*
      * Now that we have all of the components, allocate new
