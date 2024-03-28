@@ -1349,7 +1349,7 @@ int TRANS(GetHostname) (char *buf, int maxlen)
     uname (&name);
     len = strlen (name.nodename);
     if (len >= maxlen) len = maxlen - 1;
-    strncpy (buf, name.nodename, len);
+    memcpy (buf, name.nodename, len);
     buf[len] = '\0';
 #else
     buf[0] = '\0';
