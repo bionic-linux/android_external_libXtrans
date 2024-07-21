@@ -748,7 +748,7 @@ set_sun_path(const char *port, const char *upath, char *path, int abstract)
     if (*port == '/') /* a full pathname */
 	upath = "";
 
-    if (strlen(port) + strlen(upath) > maxlen)
+    if (strlen(at) + strlen(upath) + strlen(port) > maxlen)
 	return -1;
     snprintf(path, sizeof(s.sun_path), "%s%s%s", at, upath, port);
     return 0;
