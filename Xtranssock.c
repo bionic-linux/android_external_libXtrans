@@ -778,7 +778,7 @@ TRANS(SocketCreateListener) (XtransConnInfo ciptr,
     else
 	retry = 0;
 
-    while (bind (fd, (struct sockaddr *) sockname, namelen) < 0)
+    while (bind (fd, sockname, namelen) < 0)
     {
 	if (errno == EADDRINUSE) {
 	    if (flags & ADDR_IN_USE_ALLOWED)
