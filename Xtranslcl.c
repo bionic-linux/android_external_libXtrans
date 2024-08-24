@@ -747,7 +747,7 @@ TRANS(LocalInitTransports)(const char *protocol)
 	workingXLOCAL = freeXLOCAL = strdup (protocol);
     }
     else {
-	XLOCAL=(char *)getenv("XLOCAL");
+	XLOCAL = getenv("XLOCAL");
 	if(XLOCAL==NULL)
 	    XLOCAL=DEF_XLOCAL;
 	workingXLOCAL = freeXLOCAL = strdup (XLOCAL);
