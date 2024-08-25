@@ -402,11 +402,13 @@ TRANS(GetPeerNetworkId) (XtransConnInfo ciptr)
 
 
     hostname = malloc (strlen (ciptr->transptr->TransName) + strlen (addr) + 2);
-    strcpy (hostname, ciptr->transptr->TransName);
-    strcat (hostname, "/");
-    if (addr)
-	strcat (hostname, addr);
-
+    if (hostname)
+    {
+	strcpy (hostname, ciptr->transptr->TransName);
+	strcat (hostname, "/");
+	if (addr)
+	    strcat (hostname, addr);
+    }
     return (hostname);
 }
 
