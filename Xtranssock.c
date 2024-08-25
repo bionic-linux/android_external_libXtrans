@@ -1382,6 +1382,11 @@ TRANS(SocketINETConnect) (XtransConnInfo ciptr,
 	    }
 	} else {
 	    addrlist = malloc(sizeof(struct addrlist));
+	    if (addrlist == NULL) {
+		prmsg (1, "SocketINETConnect() can't allocate memory "
+			"for addrlist: %s\n", strerror(errno));
+		return TRANS_CONNECT_FAILED;
+	    }
 	    addrlist->firstaddr = NULL;
 	}
 
