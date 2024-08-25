@@ -1127,7 +1127,7 @@ TRANS(MakeAllCOTSServerListeners) (const char *port, int *partial,
 
 {
     char		buffer[256]; /* ??? What size ?? */
-    XtransConnInfo	ciptr, temp_ciptrs[NUMTRANS];
+    XtransConnInfo	ciptr, temp_ciptrs[NUMTRANS] = { NULL };
     int			status, j;
 
 #if defined(IPv6) && defined(AF_INET6)
@@ -1200,7 +1200,8 @@ TRANS(MakeAllCOTSServerListeners) (const char *port, int *partial,
 		"MakeAllCOTSServerListeners: server already running\n");
 
 		for (j = 0; j < *count_ret; j++)
-		    TRANS(Close) (temp_ciptrs[j]);
+		    if (temp_ciptrs[j] != NULL)
+			TRANS(Close) (temp_ciptrs[j]);
 
 		*count_ret = 0;
 		*ciptrs_ret = NULL;
