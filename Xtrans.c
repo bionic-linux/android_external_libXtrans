@@ -243,9 +243,10 @@ TRANS(ParseAddress) (const char *address,
     _protocol = mybuf;
 
 
-   if ( ((mybuf = strchr (mybuf,'/')) == NULL) &&
-      ((mybuf = strrchr (tmpptr,':')) == NULL) )
-   {
+    if ((mybuf == NULL) ||
+        ( ((mybuf = strchr (mybuf, '/')) == NULL) &&
+          ((mybuf = strrchr (tmpptr, ':')) == NULL) ) )
+    {
 	/* address is in a bad format */
 	*protocol = NULL;
 	*host = NULL;
