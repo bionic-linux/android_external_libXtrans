@@ -408,14 +408,22 @@ TRANS(SocketOpen) (int i, int type)
 	return NULL;
     }
 
-    if ((ciptr->fd = socket(Sockettrans2devtab[i].family, type,
-	Sockettrans2devtab[i].protocol)) < 0
+    ciptr->fd = socket(Sockettrans2devtab[i].family, type,
+                       Sockettrans2devtab[i].protocol);
+
 #ifndef WIN32
 #if (defined(X11_t) && !defined(USE_POLL)) || defined(FS_t) || defined(FONT_t)
-       || ciptr->fd >= sysconf(_SC_OPEN_MAX)
+    if (ciptr->fd >= sysconf(_SC_OPEN_MAX))
+    {
+	prmsg (2, "SocketOpen: socket() returned out of range fd %d\n",
+	       ciptr->fd);
+	close (ciptr->fd);
+	ciptr->fd = -1;
+    }
 #endif
 #endif
-      ) {
+
+    if (ciptr->fd < 0) {
 #ifdef WIN32
 	errno = WSAGetLastError();
 #endif
