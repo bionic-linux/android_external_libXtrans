@@ -250,8 +250,9 @@ TRANS(GetMyNetworkId) (XtransConnInfo ciptr)
 	struct sockaddr_un *saddr = (struct sockaddr_un *) addr;
 	networkId = malloc (3 + strlen (transName) +
 	    strlen (hostnamebuf) + strlen (saddr->sun_path));
-	sprintf (networkId, "%s/%s:%s", transName,
-	    hostnamebuf, saddr->sun_path);
+	if (networkId != NULL)
+	    sprintf (networkId, "%s/%s:%s", transName,
+		     hostnamebuf, saddr->sun_path);
 	break;
     }
 #endif /* defined(UNIXCONN) || defined(LOCALCONN) */
@@ -280,7 +281,8 @@ TRANS(GetMyNetworkId) (XtransConnInfo ciptr)
 	snprintf (portnumbuf, sizeof(portnumbuf), "%d", portnum);
 	networkId = malloc (3 + strlen (transName) +
 	    strlen (hostnamebuf) + strlen (portnumbuf));
-	sprintf (networkId, "%s/%s:%s", transName, hostnamebuf, portnumbuf);
+	if (networkId != NULL)
+	    sprintf (networkId, "%s/%s:%s", transName, hostnamebuf, portnumbuf);
 	break;
     }
 #endif /* defined(TCPCONN) */
