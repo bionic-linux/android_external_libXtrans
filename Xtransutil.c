@@ -401,7 +401,8 @@ TRANS(GetPeerNetworkId) (XtransConnInfo ciptr)
     }
 
 
-    hostname = malloc (strlen (ciptr->transptr->TransName) + strlen (addr) + 2);
+    hostname = malloc (strlen (ciptr->transptr->TransName) +
+                       (addr ? strlen (addr) : 0) + 2);
     if (hostname)
     {
 	strcpy (hostname, ciptr->transptr->TransName);
