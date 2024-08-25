@@ -259,7 +259,7 @@ TRANS(SocketSelectFamily) (int first, const char *family)
 
     prmsg (3,"SocketSelectFamily(%s)\n", family);
 
-    for (i = first + 1; i < NUMSOCKETFAMILIES;i++)
+    for (i = first + 1; i < (int)NUMSOCKETFAMILIES; i++)
     {
         if (!strcmp (family, Sockettrans2devtab[i].transname))
 	    return i;
@@ -732,7 +732,7 @@ static int
 set_sun_path(const char *port, const char *upath, char *path, int abstract)
 {
     struct sockaddr_un s;
-    int maxlen = sizeof(s.sun_path) - 1;
+    ssize_t maxlen = sizeof(s.sun_path) - 1;
     const char *at = "";
 
     if (!port || !*port || !path)
@@ -748,7 +748,7 @@ set_sun_path(const char *port, const char *upath, char *path, int abstract)
     if (*port == '/') /* a full pathname */
 	upath = "";
 
-    if (strlen(at) + strlen(upath) + strlen(port) > maxlen)
+    if ((ssize_t)(strlen(at) + strlen(upath) + strlen(port)) > maxlen)
 	return -1;
     snprintf(path, sizeof(s.sun_path), "%s%s%s", at, upath, port);
     return 0;

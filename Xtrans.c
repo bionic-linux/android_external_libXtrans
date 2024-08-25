@@ -150,7 +150,6 @@ TRANS(SelectTransport) (const char *protocol)
 #ifndef HAVE_STRCASECMP
     char 	protobuf[PROTOBUFSIZE];
 #endif
-    int		i;
 
     prmsg (3,"SelectTransport(%s)\n", protocol);
 
@@ -170,7 +169,7 @@ TRANS(SelectTransport) (const char *protocol)
 
     /* Look at all of the configured protocols */
 
-    for (i = 0; i < NUMTRANS; i++)
+    for (unsigned int i = 0; i < NUMTRANS; i++)
     {
 #ifndef HAVE_STRCASECMP
 	if (!strcmp (protobuf, Xtransports[i].transport->TransName))
@@ -500,18 +499,19 @@ TRANS(Reopen) (int type, int trans_id, int fd, const char *port)
     XtransConnInfo	ciptr = NULL;
     Xtransport		*thistrans = NULL;
     char		*save_port;
-    int			i;
 
     prmsg (2,"Reopen(%d,%d,%s)\n", trans_id, fd, port);
 
     /* Determine the transport type */
 
-    for (i = 0; i < NUMTRANS; i++)
+    for (unsigned int i = 0; i < NUMTRANS; i++)
+    {
 	if (Xtransports[i].transport_id == trans_id)
 	{
 	    thistrans = Xtransports[i].transport;
 	    break;
 	}
+    }
 
     if (thistrans == NULL)
     {
@@ -603,9 +603,8 @@ TRANS(GetReopenInfo) (XtransConnInfo ciptr,
 		      int *trans_id, int *fd, char **port)
 
 {
-    int i;
-
-    for (i = 0; i < NUMTRANS; i++)
+    for (unsigned int i = 0; i < NUMTRANS; i++)
+    {
 	if (Xtransports[i].transport == ciptr->transptr)
 	{
 	    *trans_id = Xtransports[i].transport_id;
@@ -616,6 +615,7 @@ TRANS(GetReopenInfo) (XtransConnInfo ciptr,
 	    else
 		return 1;
 	}
+    }
 
     return 0;
 }
@@ -1021,13 +1021,12 @@ complete_network_count (void)
 {
     int count = 0;
     int found_local = 0;
-    int i;
 
     /*
      * For a complete network, we only need one LOCALCONN transport to work
      */
 
-    for (i = 0; i < NUMTRANS; i++)
+    for (unsigned int i = 0; i < NUMTRANS; i++)
     {
 	if (Xtransports[i].transport->flags & TRANS_ALIAS
    	 || Xtransports[i].transport->flags & TRANS_NOLISTEN)
@@ -1060,7 +1059,7 @@ receive_listening_fds(const char* port, XtransConnInfo* temp_ciptrs,
         return -1;
     }
 
-    for (i = 0; i < systemd_listen_fds && *count_ret < NUMTRANS; i++)
+    for (i = 0; i < systemd_listen_fds && *count_ret < (int)NUMTRANS; i++)
     {
         struct sockaddr_storage a;
         int ti;
@@ -1128,7 +1127,7 @@ TRANS(MakeAllCOTSServerListeners) (const char *port, int *partial,
 {
     char		buffer[256]; /* ??? What size ?? */
     XtransConnInfo	ciptr, temp_ciptrs[NUMTRANS];
-    int			status, i, j;
+    int			status, j;
 
 #if defined(IPv6) && defined(AF_INET6)
     int		ipv6_succ = 0;
@@ -1152,7 +1151,7 @@ TRANS(MakeAllCOTSServerListeners) (const char *port, int *partial,
     if (receive_listening_fds(port, temp_ciptrs, count_ret) < 0)
 	return -1;
 
-    for (i = 0; i < NUMTRANS; i++)
+    for (unsigned int i = 0; i < NUMTRANS; i++)
     {
 	Xtransport *trans = Xtransports[i].transport;
 	unsigned int flags = 0;
@@ -1244,7 +1243,7 @@ TRANS(MakeAllCOTSServerListeners) (const char *port, int *partial,
 	    return -1;
 	}
 
-	for (i = 0; i < *count_ret; i++)
+	for (int i = 0; i < *count_ret; i++)
 	{
 	    (*ciptrs_ret)[i] = temp_ciptrs[i];
 	}
