@@ -1252,7 +1252,7 @@ TRANS(LocalRead)(XtransConnInfo ciptr, char *buf, int size)
 }
 
 static int
-TRANS(LocalWrite)(XtransConnInfo ciptr, char *buf, int size)
+TRANS(LocalWrite)(XtransConnInfo ciptr, const char *buf, int size)
 
 {
     prmsg(2,"LocalWrite(%d,%p,%d)\n", ciptr->fd, buf, size );

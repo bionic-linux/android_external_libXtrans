@@ -2238,7 +2238,7 @@ TRANS(SocketWritev) (XtransConnInfo ciptr, struct iovec *buf, int size)
 
 
 static int
-TRANS(SocketWrite) (XtransConnInfo ciptr, char *buf, int size)
+TRANS(SocketWrite) (XtransConnInfo ciptr, const char *buf, int size)
 
 {
     prmsg (2,"SocketWrite(%d,%p,%d)\n", ciptr->fd, buf, size);
@@ -2257,7 +2257,7 @@ TRANS(SocketWrite) (XtransConnInfo ciptr, char *buf, int size)
     {
         struct iovec            iov;
 
-        iov.iov_base = buf;
+        iov.iov_base = (void *) buf;
         iov.iov_len = size;
         return TRANS(SocketWritev)(ciptr, &iov, 1);
     }

@@ -901,7 +901,7 @@ TRANS(Read) (XtransConnInfo ciptr, char *buf, int size)
 }
 
 int
-TRANS(Write) (XtransConnInfo ciptr, char *buf, int size)
+TRANS(Write) (XtransConnInfo ciptr, const char *buf, int size)
 
 {
     return ciptr->transptr->Write (ciptr, buf, size);
