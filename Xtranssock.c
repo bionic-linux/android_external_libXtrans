@@ -572,7 +572,7 @@ static XtransConnInfo
 TRANS(SocketOpenCOTSClientBase) (const char *transname, const char *protocol,
 			   const char *host, const char *port, int previndex)
 {
-    XtransConnInfo	ciptr;
+    XtransConnInfo	ciptr = NULL;
     int			i = previndex;
 
     prmsg (2, "SocketOpenCOTSClient(%s,%s,%s)\n",
