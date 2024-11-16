@@ -2372,7 +2372,7 @@ static const char* tcp_nolisten[] = {
 };
 # endif
 
-Xtransport	TRANS(SocketTCPFuncs) = {
+static Xtransport	TRANS(SocketTCPFuncs) = {
 	/* Socket Interface */
 	"tcp",
         TRANS_ALIAS,
@@ -2409,7 +2409,7 @@ Xtransport	TRANS(SocketTCPFuncs) = {
 	TRANS(SocketINETClose),
 	};
 
-Xtransport	TRANS(SocketINETFuncs) = {
+static Xtransport	TRANS(SocketINETFuncs) = {
 	/* Socket Interface */
 	"inet",
 	0,
@@ -2447,7 +2447,7 @@ Xtransport	TRANS(SocketINETFuncs) = {
 	};
 
 #if defined(IPv6) && defined(AF_INET6)
-Xtransport     TRANS(SocketINET6Funcs) = {
+static Xtransport     TRANS(SocketINET6Funcs) = {
 	/* Socket Interface */
 	"inet6",
 	0,
@@ -2488,7 +2488,7 @@ Xtransport     TRANS(SocketINET6Funcs) = {
 
 #ifdef UNIXCONN
 #if !defined(LOCALCONN)
-Xtransport	TRANS(SocketLocalFuncs) = {
+static Xtransport	TRANS(SocketLocalFuncs) = {
 	/* Socket Interface */
 	"local",
 #ifdef HAVE_ABSTRACT_SOCKETS
@@ -2535,7 +2535,7 @@ static const char* unix_nolisten[] = { "local" , NULL };
 #  endif
 # endif
 
-Xtransport	TRANS(SocketUNIXFuncs) = {
+static Xtransport	TRANS(SocketUNIXFuncs) = {
 	/* Socket Interface */
 	"unix",
 #if !defined(LOCALCONN) && !defined(HAVE_ABSTRACT_SOCKETS)

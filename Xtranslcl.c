@@ -1344,7 +1344,7 @@ static const char * local_aliases[] = {
 				  NULL };
 #endif
 
-Xtransport	TRANS(LocalFuncs) = {
+static Xtransport	TRANS(LocalFuncs) = {
 	/* Local Interface */
 	"local",
 	TRANS_ALIAS | TRANS_LOCAL,
@@ -1384,7 +1384,7 @@ Xtransport	TRANS(LocalFuncs) = {
 
 #ifdef LOCAL_TRANS_NAMED
 
-Xtransport	TRANS(NAMEDFuncs) = {
+static Xtransport	TRANS(NAMEDFuncs) = {
 	/* Local Interface */
 	"named",
 	TRANS_LOCAL,
@@ -1421,7 +1421,7 @@ Xtransport	TRANS(NAMEDFuncs) = {
 	TRANS(LocalCloseForCloning),
 };
 
-Xtransport	TRANS(PIPEFuncs) = {
+static Xtransport	TRANS(PIPEFuncs) = {
 	/* Local Interface */
 	"pipe",
 	TRANS_ALIAS | TRANS_LOCAL,
