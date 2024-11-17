@@ -621,7 +621,7 @@ TRANS(SocketOpenCOTSServer) (Xtransport *thistrans, const char *protocol,
 			     const char *host, const char *port)
 
 {
-    XtransConnInfo	ciptr;
+    XtransConnInfo	ciptr = NULL;
     int	i = -1;
 
     prmsg (2,"SocketOpenCOTSServer(%s,%s,%s)\n", protocol, host, port);
