@@ -1034,8 +1034,6 @@ TRANS(SocketUNIXCreateListener) (XtransConnInfo ciptr, const char *port,
 	sockname.sun_path[0] = '\0';
 	namelen = offsetof(struct sockaddr_un, sun_path) + 1 + strlen(&sockname.sun_path[1]);
     }
-    else
-	unlink (sockname.sun_path);
 
     if ((status = TRANS(SocketCreateListener) (ciptr,
 	(struct sockaddr *) &sockname, namelen, flags)) < 0)
